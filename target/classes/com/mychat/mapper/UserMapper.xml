@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mychat.mapper.UserMapper" >
+ <select id="login" parameterType="user" resultType="user">
+ 	select * from user where userPhone=#{userPhone} and userPassword=#{userPassword}
+ </select>
+ <select id="getUserById" parameterType="long" resultType="user">
+ 	select * from user where userId=#{userId}
+  </select>
+  <select id="getChatFriendInfo" resultType="com.tc.chat.vo.ChatFriend" parameterType="long">
+ 	select userPhoto,userId,userName from USER 
+	where userId in(select distinct(messageSender) from message where messageReciver=#{loginId})
+	
+ </select>
+</mapper>
